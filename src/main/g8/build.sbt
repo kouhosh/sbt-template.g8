@@ -1,1 +1,6 @@
-// give the user a nice default project!
+lazy val root = (project in file(".")).
+  settings(
+    name := "$name$",
+    version := "$version$",
+    scalaVersion := "$scalaVersion$"
+  )
