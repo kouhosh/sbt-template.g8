@@ -4,6 +4,8 @@ val suppressedInConsoleOptions = Seq(
   "-Ywarn-unused-import"
 )
 
+val catsVersion = "1.0.1"
+
 lazy val root = (project in file(".")).
   settings(
     name := "$name$",
@@ -17,11 +19,14 @@ lazy val root = (project in file(".")).
       "-Xfatal-warnings",
       "-Ywarn-dead-code",
       "-Ywarn-numeric-widen",
-      "-Ywarn-value-discard"
+      "-Ywarn-value-discard",
+      "-Ypartial-unification",
     ) ++ suppressedInConsoleOptions,
     scalacOptions in (Compile, console) ~= (_ filterNot (suppressedInConsoleOptions.toSet)),
     scalacOptions in (Test, console) := (scalacOptions in (Compile, console)).value,
     libraryDependencies ++= Seq(
+      "org.typelevel" %% "cats-core" % catsVersion,
+      "org.typelevel" %% "cats-free" % catsVersion,
       "org.scalatest" %% "scalatest" % "3.0.1" % "test"
     )
   )
