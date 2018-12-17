@@ -1,3 +1,5 @@
+import Dependencies._
+
 val suppressedInConsoleOptions = Seq(
   "-Xlint",
   "-Ywarn-unused",
@@ -20,16 +22,14 @@ inThisBuild(Seq(
   ) ++ suppressedInConsoleOptions,
 ))
 
-val catsVersion = "1.0.1"
-
 lazy val root = (project in file(".")).
   settings(
     name := "$name$",
     scalacOptions in (Compile, console) ~= (_ filterNot (suppressedInConsoleOptions.toSet)),
     scalacOptions in (Test, console) := (scalacOptions in (Compile, console)).value,
-    libraryDependencies ++= Seq(
-      "org.typelevel" %% "cats-core" % catsVersion,
-      "org.typelevel" %% "cats-free" % catsVersion,
-      "org.scalatest" %% "scalatest" % "3.0.1" % "test"
-    )
+    libraryDependencies ++=
+      cats ++
+      List(
+        scalaTest % Test,
+      ),
   )
