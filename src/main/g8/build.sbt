@@ -8,9 +8,11 @@ val catsVersion = "1.0.1"
 
 lazy val root = (project in file(".")).
   settings(
+    inThisBuild(List(
+      version := "$version$",
+      scalaVersion := "$scalaVersion$",
+    )),
     name := "$name$",
-    version := "$version$",
-    scalaVersion := "$scalaVersion$",
     scalacOptions ++= Seq(
       "-deprecation",
       "-feature",
